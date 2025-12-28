@@ -10,20 +10,19 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="theme-btn" id="theme-btn"> </div>
   <div class="wrapper">
     <div class="video-wrap" id="video-wrap"></div>
-    <div class="inner">
-      <div class="search">
+    <div class="inner container">
+      <div class="search container d-flex justify-content-between align-items-center mt-lg-0 mt-5">
         <div class="search-left">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input type="text" id="search-input" placeholder="Google 검색 또는 URL 입력" autocomplete="off">
         </div>
         <div class="search-right"><i class="fa-solid fa-microphone-lines"></i></div>
       </div>
-      <div class="content-top">
+      <div class="content-top d-lg-flex justify-content-between">
         <div class="content-left">
-          <div class="top">
+          <div class="top d-md-flex align-items-end">
             <div class="today-time">
               <div class="date" id="date">
                 <!-- 날짜&요일 -->
@@ -64,7 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="content-right">
+        <div class="content-right ms-lg-4 mt-lg-0 mt-4">
           <div class="todolist box">
             <div class="box-title">
               <h2>To Do List</h2>
@@ -84,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="content-bottom">
+      <div class="content-bottom d-lg-flex justify-content-between">
         <div class="memo box">
           <div class="box-title">
             <h2>MEMO</h2>
@@ -92,7 +91,7 @@
           </div>
           <textarea id="textarea" cols="30" rows="10" placeholder="메모를 적어주세요"></textarea>
         </div>
-        <div class="paint box">
+        <div class="paint box ms-lg-4 mt-lg-0 mt-4">
           <div class="paint-left">
             <div class="box-title">
               <h2>PAINT</h2>

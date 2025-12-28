@@ -45,11 +45,11 @@ const getNowTime = ()=>{
   setNowTime(hour,minute);
 };
 
-const darkMode = ()=>{
-  const nowHour = new Date();
-  if(nowHour>=6 && nowHour<=17){
+const darkMode = () => {
+  const hour = new Date().getHours();
+  if (hour >= 6 && hour <= 17) {
     body.classList.remove('dark');
-  }else{
+  } else {
     body.classList.add('dark');
   }
 };
@@ -274,22 +274,44 @@ init();
 todoForm.addEventListener('submit',handler);
 clearAll.addEventListener('click',clearItems);
 
-
 //canvas
 const canvas = document.querySelector('canvas');
 const paintClear = document.querySelector('.paint-clear');
 const paintSave = document.querySelector('.paint-save');
 const ctx = canvas.getContext('2d');
 
-canvas.width = 500;
-canvas.height = 190;
-
 ctx.strokeStyle = '#2F3E4E';
 ctx.lineWidth = 3;
 
-paintClear.addEventListener('click',function(){
+const resizeCanvasToParent = () => {
+  if (!canvas) return;
+
+  const parent = canvas.parentElement;
+  const rect = parent.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.style.width = `${rect.width}px`;
+  canvas.style.height = `${rect.height}px`;
+
+  canvas.width = Math.floor(rect.width * dpr);
+  canvas.height = Math.floor(rect.height * dpr);
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  ctx.strokeStyle = '#2F3E4E';
+  ctx.lineWidth = 3;
+};
+
+if (canvas) {
+  resizeCanvasToParent();
+  window.addEventListener('resize', resizeCanvasToParent);
+  const ro = new ResizeObserver(resizeCanvasToParent);
+  ro.observe(canvas.parentElement);
+}
+
+paintClear.addEventListener('click', function(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-})
+});
 
 paintSave.addEventListener('click', () => {
   canvas.toBlob((blob) => {
@@ -301,16 +323,13 @@ paintSave.addEventListener('click', () => {
 });
 
 let painting = false;
-function stopPainting(){
-  painting = false;
-}
-function startPainting(){
-  painting = true;
-}
+function stopPainting(){ painting = false; }
+function startPainting(){ painting = true; }
 
 function onMouseMove(e){
-  let x = e.offsetX;
-  let y = e.offsetY;
+  const x = e.offsetX;
+  const y = e.offsetY;
+
   if(!painting){
     ctx.beginPath();
     ctx.moveTo(x, y);
